@@ -1,7 +1,10 @@
 CC := gcc
 
-CFLAGS := `sdl2-config --cflags` -O3 --std=c99
-LDFLAGS := `sdl2-config --libs` -lm -lSDL2_ttf
+#CFLAGS := `sdl2-config --cflags` -O3 --std=c99
+#LDFLAGS := `sdl2-config --libs` -lm -lSDL2_ttf
+CFLAGS := -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2.framework/SDL2 -I/Library/Frameworks/SDL2_ttf.framework/Headers -O3 --std=c99
+LLDFLAGS := 
+LDFLAGS := -F/Library/Frameworks -framework SDL2 -framework SDL2_ttf -lm -Wl,-rpath,/Library/Frameworks
 EXTRA_FLAGS :=
 
 HDRS :=
@@ -33,7 +36,7 @@ debug:
 	$(MAKE) EXTRA_FLAGS='-ggdb3 -O0 -fsanitize=address,undefined'
 
 %.o: %.c $(HDRS) Makefile
-	$(CC) -o $@ -c $< $(CFLAGS) $(EXTRA_FLAGS)
+	$(CC) -o $@ -c $< $(CFLAGS) $(EXTRA_FLAGS) $(LDFLAGS)
 
 clean:
 	rm -f $(EXEC) $(OBJS)

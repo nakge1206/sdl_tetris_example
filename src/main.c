@@ -1,5 +1,6 @@
 #include "definitions.h"
 #include "game.h"
+#include <time.h>
 
 #ifdef __EMSCRIPTEN__
 void run_loop() { game_loop(); }
